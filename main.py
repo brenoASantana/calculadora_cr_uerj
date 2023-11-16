@@ -1,31 +1,52 @@
+import tkinter
+
 def telaInicial():
     print(
         """
-        Seja bem-vind à calculadora 
-        """
+        Seja bem-vinde à calculadora de Coeficiente de Rendimento (CR) da UERJ!
+        1 - Iniciar
+        2 - Saber mais sobre como é calculado o CR
+        3 - Extra
+        0 - Sair
+        """        
     )
+    return int(input())
 
 
 def cr():
     return None
 
+op = telaInicial()
 
-quantMat = int(input("Quantas matérias você inscreveu-se nesse semestre?\n"))
+match op:
+    case 1:
+        quantMat = int(input("Quantas matérias você inscreveu-se nesse semestre?\n"))
 
-nomeMat = str(input("Quantas matérias você inscreveu-se nesse semestre?\n"))
+        materias = [""]*quantMat
 
-credMat = int(input(f"Quantas créditos a matéria de {nomeMat} possuí?\n"))
+        notas = [0.0]*quantMat
+        medias = [0.0]*quantMat
+        creditos  = [0]*quantMat
 
-notaMat = int(input(f"Qual foi sua nota na matéria de {nomeMat}?\n"))
+        ## matriz para os dados?
 
-mediaMat = int(input(f"Qual média da matéria de {nomeMat}?\n"))
+        for i in range(quantMat):
+            materias[i] = str(input(f"Qual o nome da {i}º matéria?\n"))
+            ## Talvez fazer um banco de dados com os nomes das materias e dos institutos?
+            creditos = int(input(f"Quantas créditos a matéria de {nomeMat} possuí?\n"))
+            notas = int(input(f"Qual foi sua nota na matéria de {nomeMat}?\n"))
+            medias = int(input(f"Qual média da matéria de {nomeMat}?\n"))
+            isConfirm = bool(input("Todas as informações acima estão corretas?\n"))
 
-isConfirm = bool(input("Todas as informações acima estão corretas?\n"))
+        if isConfirm == True:
+            cr(credMat, mediaMat)
+        else:
+            mediaMat = int(input("Qual dado você deseja alterar?"))
 
-if confirm == True:
-    cr(credMat, mediaMat)
-else:
-    mediaMat = int(input("Qual dado você deseja alterar?"))
+
+    case 2:
+        print()
+## mostra a imagem crscreen
 
 ## O cálculo do Coeficiente de Rendimento (CR) é feito para os estudantes do Regime de Crédito com o objetivo de classificá-los dentro do curso. Essa classificação estabelece prioridades no preenchimento das vagas nas disciplinas/turmas escolhidas. Para calcular o CR, utiliza-se a seguinte fórmula:
 ## CR = Somatório (n° de créditos  X nota) / Somatório (nº de créditos)
