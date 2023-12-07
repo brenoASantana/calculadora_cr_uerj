@@ -1,6 +1,5 @@
 import tkinter
 
-
 def telaInicial():
     op = int(
         input(
