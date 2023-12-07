@@ -1,7 +1,5 @@
 import tkinter
 
-## Implementar um arquivo executável?
-
 
 def telaInicial():
     op = int(
@@ -28,8 +26,7 @@ def cr(quantMat, creditos, medias):
 
     numerador = 0.0
     denominador = 0.0
-    ## salvar em arquivo?
-    ##Calcular o numerador e denominador
+
     for i in range(quantMat):
         credito = creditos[i]
         media = medias[i]
@@ -60,7 +57,11 @@ while True:
             creditos = [0] * quantMat
             medias = [0.0] * quantMat
 
-            for i in range(quantMat):
+            iError = -1
+            i = 0
+
+            ## Um while no lugar de um for para poder retornar o valor do indice caso o usuário queira corrigir os dados
+            while i < quantMat:
                 nomeMateria = str(input(f"Qual o nome da {i+1}º matéria?\n"))
 
                 credito = int(
@@ -80,23 +81,27 @@ while True:
                     nomesMaterias[i] = nomeMateria
                     creditos[i] = credito
                     medias[i] = media
+
                 else:
-                    ## Pensar em como retonar pro case 1 e não o processo todo
-                    ## pois essa parte está equivalente ao 0 - Sair
-                    print("Apagando os dados e reiniciando o processo...")
-                    continue
+                    print("OK. Vamos tentar novamente...")
+                    ## Volta uma posição para sobrescrever os dados
+                    i -= 1
+                i += 1
 
             cr = cr(quantMat, creditos, medias)
-            print(f"Seu CR este semestre é: {cr}")
-            continue
+            print(f"Seu CR este semestre é: {cr:.2f}")
+            ## ou continue?
+            break
         ## Sobre
         case 2:
-            print()
+            print("sobre")
+            continue
         ## mostra a imagem crscreen
 
         ## Extra
         case 3:
-            print()
+            print("extra")
+            continue
 
         ## Sair
         case 0:
