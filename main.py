@@ -88,6 +88,7 @@ while True:
                 i += 1
 
             cr = cr(quantMat, creditos, medias)
+            ## Perguntar se desejar gerar um arquivo com os dados
             print(f"Seu CR este semestre é: {cr:.2f}")
             ## ou continue?
             break
