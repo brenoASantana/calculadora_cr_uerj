@@ -38,7 +38,7 @@ def cr(quantMat, creditos, medias):
 
 
 quantMat = 0
-
+isGerarArqRes = False
 
 print("Seja bem-vinde à calculadora de Coeficiente de Rendimento (CR) da UERJ!")
 
@@ -48,6 +48,13 @@ while True:
     match op:
         ## Iniciar
         case 1:
+            GerarArqRes = int(
+                input("Você deseja gerar um arquivo de texto com os dados e o resultado? 1-Sim 2-Não\n")
+            )
+            if GerarArqRes == 1:
+                file = open("Resultado_CR.txt","w")
+                isGerarArqRes = True
+
             quantMat = int(
                 input("Quantas matérias você inscreveu-se nesse semestre?\n")
             )
@@ -90,6 +97,9 @@ while True:
             cr = cr(quantMat, creditos, medias)
             ## Perguntar se desejar gerar um arquivo com os dados
             print(f"Seu CR este semestre é: {cr:.2f}")
+            
+            if isGerarArqRes == True:
+                file.closed
             ## ou continue?
             break
         ## Sobre
