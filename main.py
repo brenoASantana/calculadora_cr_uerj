@@ -1,19 +1,4 @@
-import tkinter
-
-def telaInicial():
-    op = int(
-        input(
-            """
-1 - Iniciar
-2 - Saber mais sobre como é calculado o CR
-3 - Extra
-                  
-0 - Sair
-"""
-        )
-    )
-
-    return op
+from tkinter import *
 
 
 def cr(quantMat, creditos, medias):
@@ -40,10 +25,8 @@ def cr(quantMat, creditos, medias):
 quantMat = 0
 isGerarArqRes = False
 
-print("Seja bem-vinde à calculadora de Coeficiente de Rendimento (CR) da UERJ!")
 
 while True:
-    op = telaInicial()
 
     match op:
         ## Iniciar
@@ -121,3 +104,53 @@ while True:
         case _:
             print("Por favor, selecione uma das opções disponíveis.")
             continue
+
+def index():
+    window = Tk()
+    window.title("Calculadora CR UERJ")
+
+    text = Label(window, text="Seja bem-vinde à calculadora de Coeficiente de Rendimento (CR) da UERJ!")
+    text.grid(column=1, row=0)
+
+    button = Button(window, text="Iniciar", command=calculateCR)
+    button.grid(column=1, row=1)
+    button = Button(window, text="Saber mais sobre como é calculado o CR", command=aboutCR)
+    button.grid(column=1, row=2)
+    button = Button(window, text="Extra", command="")
+    button.grid(column=1, row=4)
+    ## Pular uma linha
+    button = Button(window, text="Sair", command="")
+    button.grid(column=1, row=6)
+    
+    window.mainloop() 
+    
+def aboutCR():
+    window = Tk()
+    window.title("Sobre o CR")
+    Image(window, )
+    text = Label(window, text="Seja bem-vinde à calculadora de Coeficiente de Rendimento (CR) da UERJ!")
+    text.grid(column=0, row=0)
+
+    button = Button(window, text="Iniciar", command=calculateCR)
+    button = Button(window, text="Saber mais sobre como é calculado o CR", command="")
+    # button = Button(window, text="Extra", command=)
+
+    # Pular uma linha
+    #button = Button(window, text="Sair", command="")
+    button.grid
+    window.mainloop() 
+
+def calculateCR():
+    window = Tk()
+    window.title("Calculando CR")
+    Image(window, )
+    text = Label(window, text="Quantas matérias você inscreveu-se nesse semestre?")
+    text.grid(column=0, row=0)
+
+    button = Button(window, text="Iniciar", command="")
+    button = Button(window, text="Saber mais sobre como é calculado o CR", command="")
+    button = Button(window, text="Extra", command="")
+    ## Pular uma linha
+    button = Button(window, text="Sair", command="")
+    button.grid
+    window.mainloop() 
