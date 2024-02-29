@@ -67,7 +67,7 @@ while True:
 
             ## Um while no lugar de um for para poder retornar o valor do indice caso o usuário queira corrigir os dados
             while i < quantMat:
-                nomeMateria = str(input(f"Qual o nome da {i+1}º matéria?\n"))
+                nomeMateria = str(input(f"Qual o nome da {i+1}ª matéria?\n"))
 
                 credito = int(
                     input(f"Quantos créditos a matéria de {nomeMateria} possuí?\n")

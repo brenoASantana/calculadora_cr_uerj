@@ -6,21 +6,33 @@ global window
 window = Tk()
 numSubjects = None
 
+global subjectIndex
+subjectIndex = 0
 
-def cr(numSubjects, subCredits, averages):
+
+def cr():
+    global numSubjects
+    global subjectCredits
+    global subjectAverages
 
     numerator = 0.0
     denominator = 0.0
 
     for i in range(numSubjects):
-        credit = subCredits[i]
-        average = averages[i]
+        credit = subjectCredits[i]
+        average = subjectAverages[i]
         numerator += credit * average
         denominator += credit
 
     cr = numerator / denominator
 
-    return cr
+    global window
+    window.destroy()
+    window.resizable(False, False)  # Impede redimensionamento
+    window = Tk()
+    window.title("CR Calculado")
+    skipLine(1, 0)
+    Label(window, text=f"Seu CR este semestre é: {cr}").grid(column=1, row=1)
 
 
 def skipLine(col, line):
@@ -32,6 +44,7 @@ def index():
     window.destroy()
     window = Tk()
     window.title("Calculadora CR UERJ")
+    window.resizable(False, False)  # Impede redimensionamento
 
     skipLine(1, 0)
 
@@ -45,9 +58,29 @@ def index():
     Button(window, text="Como é calculado o CR da UERJ?", command=aboutCR).grid(
         column=1, row=4
     )
-    Button(window, text="Extra", command="").grid(column=1, row=5)
+    Button(window, text="Extra", command=extra).grid(column=1, row=5)
 
     skipLine(1, 6)
+    window.mainloop()
+
+
+def extra():
+    global window
+    window.destroy()
+    window = Tk()
+    window.resizable(False, False)  # Impede redimensionamento
+
+    skipLine(1, 0)
+    Label(
+        window,
+        text="Feito com muito carinho por \n Breno Alexandre Santana Silva \n ❤",
+    ).grid(column=1, row=1)
+
+    skipLine(1, 2)
+    Button(window, text="Voltar", command=index).grid(column=1, row=4)
+
+    skipLine(1, 5)
+
     window.mainloop()
 
 
@@ -56,6 +89,7 @@ def aboutCR():
     window.destroy()
     window = Tk()
     window.title("Sobre o CR")
+    window.resizable(False, False)  # Impede redimensionamento
 
     crScreenImage = ImageTk.PhotoImage(file="crscreen.jpg")
 
@@ -74,6 +108,7 @@ def numSubjects():
     window.destroy()
     window = Tk()
     window.title("Calculando CR")
+    window.resizable(False, False)  # Impede redimensionamento
     skipLine(1, 0)
     Label(window, text="Quantas matérias você inscreveu-se nesse semestre?").grid(
         column=1, row=1
@@ -89,59 +124,46 @@ def numSubjects():
 
 def subjects():
     global numSubjects
-    numSubjects = numSubjects.get()
+    global subjectCredits
+    global subjectAverages
+    numSubjects = int(numSubjects.get())
 
-    subjectNames = [""] * numSubjects
     subjectCredits = [0] * numSubjects
     subjectAverages = [0.0] * numSubjects
 
     global window
+
     window.destroy()
     window = Tk()
     window.title("Calculando CR")
+    window.resizable(False, False)  # Impede redimensionamento
     skipLine(1, 0)
-    Label(window, text="a").grid(column=1, row=1)
 
-    iError = -1
     i = 0
-    # TODO: Converter algoritmo para o tkinter
-    # TODO: Planejar se informa os dados em janelas separadas ou tudo na mesma janela
-    ## Um while no lugar de um for para poder retornar o valor do indice caso o usuário queira corrigir os dados
-    while i < numSubjects:
-        nameSubject = str(input(f"Qual o nome da {i+1}º matéria?\n"))
 
-        ## credit = int(input(f"Quantos créditos a matéria de {nomeMateria} possuí?\n"))
+    for i in range(numSubjects):
 
-        ## average = float(input(f"Qual foi sua média na matéria de {nomeMateria}?\n"))
-
-        isConfirm = int(
-            input("Todas as informações acima estão corretas? 1-Sim 2-Não\n")
+        Label(window, text=f"Quantos créditos a {i+1}ª matéria possuí?").grid(
+            column=1, row=(i + 1)
         )
+        subjectCredit = Entry(window)
+        subjectCredit.grid(column=1, row=(i + 2))
+        skipLine(1, (i + 3))
 
-        ## Primeiro confirma se os dados estão certo antes de adicioná-los no vetor
-        if isConfirm == 1:
-            print("")
-        ##    nomesMaterias[i] = nomeMateria
-        ##    creditos[i] = credito
-        ##    medias[i] = media
+        Label(window, text=f"Qual foi sua média na {i+1}ª matéria?").grid(
+            column=1, row=(i + 4)
+        )
+        subjectAverage = Entry(window)
+        subjectAverage.grid(column=1, row=(i + 5))
+        skipLine(1, (i + 6))
 
-        else:
-            print("OK. Vamos tentar novamente...")
-            ## Volta uma posição para sobrescrever os dados
-            i -= 1
-        i += 1
+    subjectCredits[i] = subjectCredit
+    subjectAverages[i] = subjectAverage
 
-    ## cr = cr(quantMat, creditos, medias)
-    ## Perguntar se desejar gerar um arquivo com os dados
-    print(f"Seu CR este semestre é: {cr:.2f}")
+    Button(window, text="Avançar", command=cr).grid(column=1, row=numSubjects)
+    skipLine(1, (numSubjects+1))
 
-    ## ou continue?
-
-    # * Ordem para calcular CR:
-    # * 1. Nº de Disciplinas
-    # * 2. Nome, Crédito e Média na Disciplina
-    # * 3. Resultado do CR
+    window.mainloop()
 
 
-# chamada de procedimento que inicia o processo
 index()
